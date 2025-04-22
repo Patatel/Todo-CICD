@@ -24,39 +24,37 @@ function generatePCData() {
   const batteryHealth = Math.floor(Math.random() * 20) + 80; // entre 80% et 100%
   
   return {
-    systemInfo: {
-      brand: pcBrands[Math.floor(Math.random() * pcBrands.length)],
-      graphicsCard: gpuModels[Math.floor(Math.random() * gpuModels.length)],
-      ram: {
-        size: ramSize
-      },
-      cpu: {
-        model: cpuModels[Math.floor(Math.random() * cpuModels.length)],
-        cores: Math.pow(2, Math.floor(Math.random() * 3) + 2), // 4, 8 ou 16 cœurs
-        temperature: Math.floor(Math.random() * 25) + 40, // Entre 40°C et 65°C
-        usage: Math.floor(Math.random() * 100) // Utilisation de 0% à 100%
-      },
-      network: {
-        type: networkType,
-        speed: networkSpeed,
-        unit: "Mbps",
-        connected: Math.random() > 0.05 // 95% du temps connecté
-      },
-      bluetooth: {
-        version: bluetoothVersions[Math.floor(Math.random() * bluetoothVersions.length)],
-        enabled: Math.random() > 0.2, // 80% du temps activé
-        connectedDevices: Math.floor(Math.random() * 3) // 0 à 2 appareils connectés
-      },
-      os: {
-        name: osList[Math.floor(Math.random() * osList.length)],
-        buildNumber: `${Math.floor(Math.random() * 500) + 19000}`,
-        lastUpdate: new Date(Date.now() - Math.floor(Math.random() * 30) * 86400000).toISOString().split('T')[0] // Date de mise à jour aléatoire dans les 30 derniers jours
-      },
-      battery: {
-        level: batteryLevel,
-        status: chargingStatus,
-        health: batteryHealth
-      }
+    brand: pcBrands[Math.floor(Math.random() * pcBrands.length)],
+    graphicsCard: gpuModels[Math.floor(Math.random() * gpuModels.length)],
+    ram: {
+      size: ramSize
+    },
+    cpu: {
+      model: cpuModels[Math.floor(Math.random() * cpuModels.length)],
+      cores: Math.pow(2, Math.floor(Math.random() * 3) + 2), // 4, 8 ou 16 cœurs
+      temperature: Math.floor(Math.random() * 25) + 40, // Entre 40°C et 65°C
+      usage: Math.floor(Math.random() * 100) // Utilisation de 0% à 100%
+    },
+    network: {
+      type: networkType,
+      speed: networkSpeed,
+      unit: "Mbps",
+      connected: Math.random() > 0.05 // 95% du temps connecté
+    },
+    bluetooth: {
+      version: bluetoothVersions[Math.floor(Math.random() * bluetoothVersions.length)],
+      enabled: Math.random() > 0.2, // 80% du temps activé
+      connectedDevices: Math.floor(Math.random() * 3) // 0 à 2 appareils connectés
+    },
+    os: {
+      name: osList[Math.floor(Math.random() * osList.length)],
+      buildNumber: `${Math.floor(Math.random() * 500) + 19000}`,
+      lastUpdate: new Date(Date.now() - Math.floor(Math.random() * 30) * 86400000).toISOString().split('T')[0] // Date de mise à jour aléatoire dans les 30 derniers jours
+    },
+    battery: {
+      level: batteryLevel,
+      status: chargingStatus,
+      health: batteryHealth
     }
   };
 }
