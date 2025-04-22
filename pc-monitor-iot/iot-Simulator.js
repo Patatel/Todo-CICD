@@ -1,7 +1,7 @@
 const axios = require('axios');
 const fs = require('fs');
 
-const BACKEND_URL = 'http://localhost:3000/api/system-data';
+const BACKEND_URL = 'http://localhost:3000/system-info';
 const SIMULATION_INTERVAL = 120000;
 const LOG_FILE = './iot-system-logs.json';
 

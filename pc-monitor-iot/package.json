@@ -9,9 +9,9 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "description": "",
   "dependencies": {
     "axios": "^1.8.4",
     "systeminformation": "^5.25.11"
-  }
+  },
+  "description": ""
 }
