@@ -1,0 +1,17 @@
+# Dépendances
+node_modules/
+package-lock.json
+
+# Fichiers de logs
+*.log
+npm-debug.log*
+
+# Fichiers générés par le simulateur
+iot-system-logs.json
+
+# Fichiers d'environnement
+.env
+
+# Fichiers système
+.DS_Store
+Thumbs.db
