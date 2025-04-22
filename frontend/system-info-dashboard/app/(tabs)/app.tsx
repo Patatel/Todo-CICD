@@ -1,5 +1,7 @@
 // Fichier: App.js
 import React, { useState, useEffect } from 'react';
+import type { ReactNode } from 'react';
+import axios from 'axios';
 import { 
   StyleSheet, 
   Text, 
@@ -14,40 +16,99 @@ import {
 import { MaterialIcons, FontAwesome5 } from '@expo/vector-icons';
 
 // Constantes de l'application
-const API_URL = 'http://172.20.10.5:3000/system-info'; // Utilise 10.0.2.2 pour Android Emulator, ou 'localhost' pour web ou iOS
-// Si tu exécutes sur un appareil physique, tu devras utiliser l'adresse IP de ton ordinateur
+// Tableau d'URLs à essayer en cas d'échec de la première
+const API_URLS = 'http://79.127.215.213:8081/system-info'
+
+// Définition des types pour TypeScript
+interface SystemInfo {
+  brand: string;
+  graphicsCard?: string;
+  ram?: {
+    size: number;
+  };
+  cpu?: {
+    model?: string;
+    cores?: number;
+    temperature?: number;
+    usage?: number;
+  };
+  network?: {
+    type?: string;
+    speed?: number;
+    unit?: string;
+    connected?: boolean;
+  };
+  bluetooth?: {
+    version?: string;
+    enabled?: boolean;
+    connectedDevices?: number;
+  };
+  os?: {
+    name?: string;
+    buildNumber?: string;
+    lastUpdate?: string;
+  };
+  battery?: {
+    level?: number;
+    status?: string;
+    health?: number;
+  };
+  createdAt?: string;
+}
 
 export default function App() {
-  const [systemData, setSystemData] = useState([]);
+  const [systemData, setSystemData] = useState<SystemInfo[]>([]);
   const [loading, setLoading] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
-  const [error, setError] = useState(null);
-  const [selectedSystem, setSelectedSystem] = useState(null);
+  const [error, setError] = useState<string | null>(null);
+  const [selectedSystem, setSelectedSystem] = useState<SystemInfo | null>(null);
 
-  // Fonction pour récupérer les données du backend
+  // Fonction pour récupérer les données du backend avec axios
   const fetchData = async () => {
-    try {
-      setError(null);
-      const response = await fetch(API_URL);
-      
-      if (!response.ok) {
-        throw new Error(`Erreur HTTP: ${response.status}`);
+    setError(null);
+    
+    // Essayer chaque URL jusqu'à ce qu'une fonctionne
+    let lastError: Error | null = null;
+    
+      try {
+        console.log(`Tentative de connexion à: ${API_URLS}`);
+        const response = await axios.get(API_URLS);
+        
+        // Axios lance automatiquement une erreur pour les codes d'état non-2xx
+        // donc pas besoin de vérifier response.ok
+        
+        const data = response.data as SystemInfo[];
+        console.log(`Connexion réussie à: ${API_URLS}`);
+        setSystemData(data.reverse()); // Pour afficher les plus récentes en premier
+        
+        // Si aucun système n'est sélectionné, sélectionne le premier
+        if (data.length > 0 && !selectedSystem) {
+          setSelectedSystem(data[0]);
+        }
+        
+        // Si on arrive ici, c'est que ça a fonctionné, on sort de la boucle
+        setLoading(false);
+        setRefreshing(false);
+        return;
+      } catch (err) {
+        // Axios fournit des détails d'erreur dans err.response
+        if (axios.isAxiosError(err) && err.response) {
+          console.error(`Échec de connexion à ${API_URLS}: HTTP ${err.response.status} - ${err.response.statusText}`);
+          lastError = new Error(`Erreur HTTP: ${err.response.status}`);
+        } else {
+          const error = err as Error;
+          console.error(`Échec de connexion à ${API_URLS}:`, error.message);
+          lastError = error;
+        }
+        // Continuer avec l'URL suivante
       }
-      
-      const data = await response.json();
-      setSystemData(data.reverse()); // Pour afficher les plus récentes en premier
-      
-      // Si aucun système n'est sélectionné, sélectionne le premier
-      if (data.length > 0 && !selectedSystem) {
-        setSelectedSystem(data[0]);
-      }
-    } catch (err) {
-      console.error('Erreur lors de la récupération des données:', err);
-      setError(err.message);
-    } finally {
-      setLoading(false);
-      setRefreshing(false);
-    }
+    
+    
+    // Si on arrive ici, c'est qu'aucune URL n'a fonctionné
+    setError(lastError ? lastError.message : "Impossible de se connecter au backend");
+    
+    setLoading(false);
+    setRefreshing(false);
   };
 
   // Récupérer les données au chargement de l'app
@@ -62,7 +123,7 @@ export default function App() {
   };
 
   // Fonction pour sélectionner un système
-  const selectSystem = (system) => {
+  const selectSystem = (system: SystemInfo) => {
     setSelectedSystem(system);
   };
 
