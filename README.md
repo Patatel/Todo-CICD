@@ -1,7 +1,7 @@
-# Projet de Todo List Connectée
+# Projet Info machine
 
 ## Description
-Ce projet est une application de todo list simple et connectée. Il est composé de trois parties principales :
+Ce projet est une application qui affiche les information de la machine sur laquel elle est lancer. Il est composé de trois parties principales :
 backend/ : mini API REST avec Express.js
 iot-script/ : script Node.js qui collecte les données du PC (CPU, RAM, réseau, Bluetooth)
 frontend/ : interface React avec Expo pour consulter les données en temps réel
@@ -44,22 +44,6 @@ npm install
 node index.js
 ```
 
-
-## Vérification
-1. Assurez-vous que l'application mobile reçoit et affiche correctement les tâches simulées par le script IoT.
-2. Vérifiez que les interactions avec le backend fonctionnent comme prévu (ajout, suppression, mise à jour des tâches).
-
-
-## Fonctionnalités
-- **Ajouter une tâche** : Ajoutez une nouvelle tâche avec un titre, une description et un statut (complété ou non).
-- **Afficher les tâches** : Affichez la liste des tâches avec leur statut.
-- **Mettre à jour une tâche** : Modifiez le statut d'une tâche (complété ou non).
-- **Supprimer une tâche** : Supprimez une tâche de la liste.
-
-
-## Documentation
-- Chaque composant (mobile, IoT, backend) dispose de son propre fichier README avec des instructions détaillées.
-- La procédure de livraison complète se trouve dans le fichier `/docs/procedure_de_livraison.md`.
 
 ## Contributeurs
 - **Dev Mobile** : JUN
