@@ -1,0 +1,21 @@
+{
+  "name": "todo-cicd",
+  "version": "1.0.0",
+  "description": "Ce projet est une application de todo list simple et connectée. Il est composé de trois parties principales :\r backend/ : mini API REST avec Express.js\r iot-script/ : script Node.js qui collecte les données du PC (CPU, RAM, réseau, Bluetooth)\r frontend/ : interface React avec Expo pour consulter les données en temps réel",
+  "main": "start-app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node start-app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Patatel/Todo-CICD.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Patatel/Todo-CICD/issues"
+  },
+  "homepage": "https://github.com/Patatel/Todo-CICD#readme"
+}
