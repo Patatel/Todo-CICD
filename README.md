@@ -30,7 +30,7 @@ Un navigateur moderne (Chrome, Edge, etc.)
 ## Lancement
 
 ### Application Mobile
-1. Dans le dossier `/mobile`, lancez l'application avec `npm start`.
+1. Dans le dossier `/mobile`, lancez l'application avec `npx expo start`.
 2. Ouvrez l'application dans un navigateur ou un émulateur.
 
 ### Script IoT
